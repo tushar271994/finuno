@@ -48,25 +48,25 @@ restService.post('/finUNO', function(req, res) {                    // Uses post
 
              /* Stockwords curently being removed from inputtext 
               Add addition stockwords to this list */
-              console.log("inputtext is", inputText);
+              console.log("inputtext is", inputText)
 
-            var stockwords=["ON", "AT","OF","WITH"];
-            var synonymwords=["NORM","COVER","CASH AND CARRY","MARGIN INTRADAY SQUAREOFF"];
-            var removalString = stockwords.concat(synonymwords);
+            // var stockwords=["ON", "AT","OF","WITH"];
+            // var synonymwords=["NORM","COVER","CASH AND CARRY","MARGIN INTRADAY SQUAREOFF"];
+            // var removalString = stockwords.concat(synonymwords);
              
-            function scripword(data) {
+            // function scripword(data) {
                
-               for(var x=0 ; x<removalString.length;x++){
-                   var searchString = ' '+removalString[x];
-                if(data.search(searchString) !== -1 && data !==""){
-                    data= data.replace(searchString, "");
-                    console.log("process" , process);
-                    inputText=data;
-                    inputText=inputText.trim();
-                }
-               }  
-            } 
-              scripword(inputText);
+            //    for(var x=0 ; x<removalString.length;x++){
+            //        var searchString = ' '+removalString[x];
+            //     if(data.search(searchString) !== -1 && data !==""){
+            //         data= data.replace(searchString, "");
+            //         console.log("process" , process);
+            //         inputText=data;
+            //         inputText=inputText.trim();
+            //     }
+            //    }  
+            // } 
+            //   scripword(inputText);
 
             var exchange_possibilities = "The stock is not available on ";
             exchange_possibilities = exchange_possibilities.concat(exchange);
@@ -74,191 +74,192 @@ restService.post('/finUNO', function(req, res) {                    // Uses post
             exchange=exchange.toUpperCase();
 
           /* Arrays for potential scrip  matches */
-            var scriplist1 = [];
-            var scriplist2 = [];
-            var scriplist3 = [];
+            // var scriplist1 = [];
+            // var scriplist2 = [];
+            // var scriplist3 = [];
             
             /* Flag indicating whether scrip is Substring of field1 */
-            var field1Substring=0;
+            // var field1Substring=0;
+
             
-            for(var i=0 ; i < scrips.length ; i++){    
-                 // Find matching scrip(s)  
+    //         for(var i=0 ; i < scrips.length ; i++){    
+    //              // Find matching scrip(s)  
                 
-                /* Checking for match with symbol in field2 : example INFY */
+    //             /* Checking for match with symbol in field2 : example INFY */
 
-                // console.log("product type" , productType);
+    //             // console.log("product type" , productType);
                
-                 if(inputText === scrips[i].FIELD2){
-                    var obj={
-                       FIELD1:scrips[i].FIELD1,
-                       FIELD4:scrips[i].FIELD4,
-                       FIELD3:scrips[i].FIELD3,
-                    }
-                    scriplist1.push(obj);
-                } 
+    //              if(inputText === scrips[i].FIELD2){
+    //                 var obj={
+    //                    FIELD1:scrips[i].FIELD1,
+    //                    FIELD4:scrips[i].FIELD4,
+    //                    FIELD3:scrips[i].FIELD3,
+    //                 }
+    //                 scriplist1.push(obj);
+    //             } 
               
-                /* Checking for match with extended symbol or code in field3 : example INFY-EQ or 500209 */
+    //             /* Checking for match with extended symbol or code in field3 : example INFY-EQ or 500209 */
 
-                else if(inputText === scrips[i].FIELD3){
-                    var obj={
-                        FIELD1:scrips[i].FIELD1,
-                        FIELD3:scrips[i].FIELD3,
-                        FIELD4:scrips[i].FIELD4,
-                    }
-                     scriplist1.push(obj);
-                }
-            }
+    //             else if(inputText === scrips[i].FIELD3){
+    //                 var obj={
+    //                     FIELD1:scrips[i].FIELD1,
+    //                     FIELD3:scrips[i].FIELD3,
+    //                     FIELD4:scrips[i].FIELD4,
+    //                 }
+    //                  scriplist1.push(obj);
+    //             }
+    //         }
 
-        /* If input doesn't match symbol or extended symbol check if substring of scripname in field1 */
-       if(scriplist1.length===0 && inputText!== ""){
-          for(var i=0 ; i < scrips.length ; i++){                    // Find matching scrip(s)  
+    //     /* If input doesn't match symbol or extended symbol check if substring of scripname in field1 */
+    //    if(scriplist1.length===0 && inputText!== ""){
+    //       for(var i=0 ; i < scrips.length ; i++){                    // Find matching scrip(s)  
             
-            /* Checking for match with symbol : example INFY */
+    //         /* Checking for match with symbol : example INFY */
          
-           if(scrips[i].FIELD1.toUpperCase().search(inputText)!==-1){
+    //        if(scrips[i].FIELD1.toUpperCase().search(inputText)!==-1){
 
-           /* Checking if input is substring of scripname */
+    //        /* Checking if input is substring of scripname */
            
-           var obj={
-                FIELD3:scrips[i].FIELD3,
-                FIELD1:scrips[i].FIELD1,
-                FIELD4:scrips[i].FIELD4,
-            }
+    //        var obj={
+    //             FIELD3:scrips[i].FIELD3,
+    //             FIELD1:scrips[i].FIELD1,
+    //             FIELD4:scrips[i].FIELD4,
+    //         }
 
-               scriplist1.push(obj);
-               field1Substring=1;
-            }
-          }
-          /* If inputtext is multiple words and previous conditions doesn't match split into words and search for each word */ 
+    //            scriplist1.push(obj);
+    //            field1Substring=1;
+    //         }
+    //       }
+    //       /* If inputtext is multiple words and previous conditions doesn't match split into words and search for each word */ 
          
-          if(field1Substring===0 && inputText !== ""){
-            for(var i=0 ; i < scrips.length ; i++){   
+    //       if(field1Substring===0 && inputText !== ""){
+    //         for(var i=0 ; i < scrips.length ; i++){   
 
-                var scripwords = inputText.split(" ");
-                for(var j=0 ; j<scripwords.length; j++){
-                   if(scrips[i].FIELD1.toUpperCase().search(scripwords[j])!==-1){
-                    /* Checking if input is substring of scripname */
+    //             var scripwords = inputText.split(" ");
+    //             for(var j=0 ; j<scripwords.length; j++){
+    //                if(scrips[i].FIELD1.toUpperCase().search(scripwords[j])!==-1){
+    //                 /* Checking if input is substring of scripname */
                     
-                      var obj={
-                         FIELD3:scrips[i].FIELD3,
-                         FIELD1:scrips[i].FIELD1,
-                         FIELD4:scrips[i].FIELD4,
+    //                   var obj={
+    //                      FIELD3:scrips[i].FIELD3,
+    //                      FIELD1:scrips[i].FIELD1,
+    //                      FIELD4:scrips[i].FIELD4,
                          
-                       }
-                       scriplist1.push(obj);
-                    }
-                }
-            }
-         }
-        }
+    //                    }
+    //                    scriplist1.push(obj);
+    //                 }
+    //             }
+    //         }
+    //      }
+    //     }
 
-            /* Found only 1 match checking for exchange */
-            var exchange_scrip_match = 0;
-               if(scriplist1.length === 1){
-                if(scriplist1[0].FIELD4===exchange){
-                    scriplist3.push(scriplist1[0].FIELD1);
-                    scriplist2.push(scriplist1[0].FIELD3);
-                    exchange_scrip_match = 1;
-                }
-                else{
-                    console.log("exchange possiblity");
-                    exchange_possibilities=exchange_possibilities.concat(scriplist1[0].FIELD4);
-                    scriplist3.push(scriplist1[0].FIELD1);
-                    scriplist2.push(scriplist1[0].FIELD3);
-                    exchange_scrip_match = 0;
-                   }
-             }
+    //         /* Found only 1 match checking for exchange */
+    //         var exchange_scrip_match = 0;
+    //            if(scriplist1.length === 1){
+    //             if(scriplist1[0].FIELD4===exchange){
+    //                 scriplist3.push(scriplist1[0].FIELD1);
+    //                 scriplist2.push(scriplist1[0].FIELD3);
+    //                 exchange_scrip_match = 1;
+    //             }
+    //             else{
+    //                 console.log("exchange possiblity");
+    //                 exchange_possibilities=exchange_possibilities.concat(scriplist1[0].FIELD4);
+    //                 scriplist3.push(scriplist1[0].FIELD1);
+    //                 scriplist2.push(scriplist1[0].FIELD3);
+    //                 exchange_scrip_match = 0;
+    //                }
+    //          }
 
-             /* Filter match for the right exchange */
-             else if((scriplist1.length === 2)){
-               for(i=0 ; i < scriplist1.length ; i++){
-                  if(scriplist1[i].FIELD4===exchange ){
-                   scriplist3.push(scriplist1[i].FIELD1);
-                   scriplist2.push(scriplist1[i].FIELD3);
-                   exchange_scrip_match = 1;
-                  }
-                }
-            }
-            /* Build up possible matches to allow user to select*/
-              else if((scriplist1.length > 2)){
-                if(scriplist1.length > 20){
-                  var scripstring= "Too many matches. Please provide more specific inputs:";
-                }
-                else{
-                  var scripstring = "From the following scrips type in symbol/code of the scrip you are interested in:";
-                }
-                  for(i=0 ; i < scriplist1.length ; i++){
-                    if(exchange===scriplist1[i].FIELD4 || exchange === ""){
-                      scripstring = scripstring.concat("\n");
-                      scripstring = scripstring.concat(scriplist1[i].FIELD1 + "(" + exchange + ")");
-                      scripstring = scripstring.concat("(" + scriplist1[i].FIELD3 + ")" );
-                      scripstring = scripstring.concat(",");
-                      exchange_scrip_match = 1;
-                    }
-                 }
-                var lastIndex = scripstring.lastIndexOf(",");
-                scripstring = scripstring.substring(0, lastIndex);
-            }
+    //          /* Filter match for the right exchange */
+    //          else if((scriplist1.length === 2)){
+    //            for(i=0 ; i < scriplist1.length ; i++){
+    //               if(scriplist1[i].FIELD4===exchange ){
+    //                scriplist3.push(scriplist1[i].FIELD1);
+    //                scriplist2.push(scriplist1[i].FIELD3);
+    //                exchange_scrip_match = 1;
+    //               }
+    //             }
+    //         }
+    //         /* Build up possible matches to allow user to select*/
+    //           else if((scriplist1.length > 2)){
+    //             if(scriplist1.length > 20){
+    //               var scripstring= "Too many matches. Please provide more specific inputs:";
+    //             }
+    //             else{
+    //               var scripstring = "From the following scrips type in symbol/code of the scrip you are interested in:";
+    //             }
+    //               for(i=0 ; i < scriplist1.length ; i++){
+    //                 if(exchange===scriplist1[i].FIELD4 || exchange === ""){
+    //                   scripstring = scripstring.concat("\n");
+    //                   scripstring = scripstring.concat(scriplist1[i].FIELD1 + "(" + exchange + ")");
+    //                   scripstring = scripstring.concat("(" + scriplist1[i].FIELD3 + ")" );
+    //                   scripstring = scripstring.concat(",");
+    //                   exchange_scrip_match = 1;
+    //                 }
+    //              }
+    //             var lastIndex = scripstring.lastIndexOf(",");
+    //             scripstring = scripstring.substring(0, lastIndex);
+    //         }
                      
-             if(scriplist3.length === 1 && exchange !== ""){
-                  if(exchange_scrip_match === 1){
-                     scripnames = scriplist2;      
-                   }
-                   else{        
-                    return res.json({
-                     contextOut : [{
-                     name : "tradecontextout",
-                     parameters : {
-                        scripnames : scripnames
-                     }
-                      }],
-                    speech : exchange_possibilities,
-                     displayText : exchange_possibilities
-                  });
-                }}
-            else  if(scripstring !== "" && exchange_scrip_match === 1 ){
-                return res.json({
-                    contextOut : [{
-                        name : "tradecontextout",
-                        parameters : {
-                            scripnames : scripnames
-                        }
-                    }],
-                    speech :  scripstring ,
-                    displayText :  scripstring 
-                });
-            }
-            // else if(scriplist3.length === 0 && inputText !== "" && exchange !== ""){
-            //         var noMatch="No match for scrip" + ":" + inputText;
-            //       return res.json({
-            //           contextOut : [{
-            //           name : "tradecontextout",
-            //           parameters : {
-            //              scripnames : noMatch
-            //           }
-            //           }],
-            //         speech : noMatch,
-            //          displayText : noMatch
-            //       });
-            //   }
+    //          if(scriplist3.length === 1 && exchange !== ""){
+    //               if(exchange_scrip_match === 1){
+    //                  scripnames = scriplist2;      
+    //                }
+    //                else{        
+    //                 return res.json({
+    //                  contextOut : [{
+    //                  name : "tradecontextout",
+    //                  parameters : {
+    //                     scripnames : scripnames
+    //                  }
+    //                   }],
+    //                 speech : exchange_possibilities,
+    //                  displayText : exchange_possibilities
+    //               });
+    //             }}
+    //         else  if(scripstring !== "" && exchange_scrip_match === 1 ){
+    //             return res.json({
+    //                 contextOut : [{
+    //                     name : "tradecontextout",
+    //                     parameters : {
+    //                         scripnames : scripnames
+    //                     }
+    //                 }],
+    //                 speech :  scripstring ,
+    //                 displayText :  scripstring 
+    //             });
+    //         }
+    //         // else if(scriplist3.length === 0 && inputText !== "" && exchange !== ""){
+    //         //         var noMatch="No match for scrip" + ":" + inputText;
+    //         //       return res.json({
+    //         //           contextOut : [{
+    //         //           name : "tradecontextout",
+    //         //           parameters : {
+    //         //              scripnames : noMatch
+    //         //           }
+    //         //           }],
+    //         //         speech : noMatch,
+    //         //          displayText : noMatch
+    //         //       });
+    //         //   }
   
 
-              if(  exchange === "" || transactionType === "" || quantity === "") {    //checks if all required fields have been filled yet
-              if(scriplist1.length === 1)
-                scripnames=scriplist1[0].FIELD3;
-               if(scriplist1.length === 2)
-                 scripnames=scriplist1[0].FIELD3;
-              return res.json({
-                    contextOut : [{
-                        name : "tradecontextout",
-                        parameters : {
-                            scripnames : scripnames
-                        }
-                    }]
-                });     
-            }       
+    //           if(  exchange === "" || transactionType === "" || quantity === "") {    //checks if all required fields have been filled yet
+    //           if(scriplist1.length === 1)
+    //             scripnames=scriplist1[0].FIELD3;
+    //            if(scriplist1.length === 2)
+    //              scripnames=scriplist1[0].FIELD3;
+    //           return res.json({
+    //                 contextOut : [{
+    //                     name : "tradecontextout",
+    //                     parameters : {
+    //                         scripnames : scripnames
+    //                     }
+    //                 }]
+    //             });     
+    //         }       
            
-            if( scripnames !== "" && exchange !== "" && transactionType !== "" && quantity !== ""){
+            if(  exchange !== "" && transactionType !== "" && quantity !== ""){
                 
                 return res.json({                                                     // returns final output by calling followupEvent 
                     contextOut : [{
@@ -287,7 +288,7 @@ restService.post('/finUNO', function(req, res) {                    // Uses post
                             transactionType : transactionType,
                             exchange : exchange,
                             quantity : quantity,
-                            scripnames : scripnames,
+                            scripnames : inputText,
                             priceType : priceType,
                             productType : productType,
                             validity : validity,
