@@ -34,7 +34,7 @@ restService.post('/finUNO', function(req, res) {                    // Uses post
             var scripnames = req.body.result.parameters.scripnames;
 
 
-            consoel.log("scripname", scripnames);
+            console.log("scripname", scripnames);
 
            /* Removing all keywords except scrip */
 
