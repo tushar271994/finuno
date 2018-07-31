@@ -203,7 +203,7 @@ restService.post('/finUNO', function(req, res) {                    // Uses post
                      
     //          if(scriplist3.length === 1 && exchange !== ""){
     //               if(exchange_scrip_match === 1){
-    //                  scripnames = scriplist2;      
+                      scripnames = inputText;      
     //                }
     //                else{        
     //                 return res.json({
@@ -289,7 +289,6 @@ restService.post('/finUNO', function(req, res) {                    // Uses post
                             exchange : exchange,
                             quantity : quantity,
                             scripnames : scripnames,
-                            inputText : inputText,
                             priceType : priceType,
                             productType : productType,
                             validity : validity,
