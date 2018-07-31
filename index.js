@@ -48,7 +48,7 @@ restService.post('/finUNO', function(req, res) {                    // Uses post
 
              /* Stockwords curently being removed from inputtext 
               Add addition stockwords to this list */
-              console.log("inputtext is", inputText)
+              console.log("inputtext is", inputText);
 
             // var stockwords=["ON", "AT","OF","WITH"];
             // var synonymwords=["NORM","COVER","CASH AND CARRY","MARGIN INTRADAY SQUAREOFF"];
@@ -203,7 +203,8 @@ restService.post('/finUNO', function(req, res) {                    // Uses post
                      
     //          if(scriplist3.length === 1 && exchange !== ""){
     //               if(exchange_scrip_match === 1){
-                      scripnames = inputText;      
+                      scripnames = inputText;  
+                      console.log("scripname is", scripnames);    
     //                }
     //                else{        
     //                 return res.json({
