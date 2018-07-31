@@ -13,7 +13,7 @@ restService.use(bodyParser.json());
 /* Loading a scrip data */
 
 restService.post('/finUNO', function(req, res) {                    // Uses post() to get data from dialog flow in json format
-    var scrips = require("./all_scrips.json");                      // Gets data from the scrip list
+    //var scrips = require("./all_scrips.json");                      // Gets data from the scrip list
     // var scrips = require("./Equity_final.json");
     var inputText= req.body.result.resolvedQuery;
     var action = req.body.result.action;                            // Reads action field from json  
