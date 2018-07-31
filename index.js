@@ -207,7 +207,7 @@ restService.post('/finUNO', function(req, res) {                    // Uses post
                      
     //          if(scriplist3.length === 1 && exchange !== ""){
     //               if(exchange_scrip_match === 1){
-                      scripnames = inputText;  
+                    //  scripnames = inputText;  
                       console.log("scripname is", scripnames);    
     //                }
     //                else{        
