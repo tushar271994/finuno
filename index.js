@@ -263,7 +263,7 @@ restService.post('/finUNO', function(req, res) {                    // Uses post
     //             });     
     //         }       
            
-            if(  exchange !== "" && transactionType !== "" && quantity !== ""){
+            if( scripnames !== "" && exchange !== "" && transactionType !== "" && quantity !== ""){
                 
                 return res.json({                                                     // returns final output by calling followupEvent 
                     contextOut : [{
