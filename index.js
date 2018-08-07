@@ -13,7 +13,7 @@ restService.use(bodyParser.json());
 /* Loading a scrip data */
 
 restService.post('/finUNO', function(req, res) {                    // Uses post() to get data from dialog flow in json format
-    //var scrips = require("./all_scrips.json");                      // Gets data from the scrip list
+    var scrips = require("./all_scrips.json");                      // Gets data from the scrip list
     // var scrips = require("./Equity_final.json");
     var inputText= req.body.result.resolvedQuery;
     var action = req.body.result.action;   
@@ -35,7 +35,7 @@ restService.post('/finUNO', function(req, res) {                    // Uses post
             var scripnames = req.body.result.parameters.scripnames;
 
 
-            console.log("scripname", scripnames);
+            console.log("scripname result", scripnames);
 
            /* Removing all keywords except scrip */
 
@@ -78,9 +78,20 @@ restService.post('/finUNO', function(req, res) {                    // Uses post
             exchange=exchange.toUpperCase();
 
           /* Arrays for potential scrip  matches */
-            // var scriplist1 = [];
-            // var scriplist2 = [];
-            // var scriplist3 = [];
+            var scriplist1 = [];
+            var scriplist2 = [];
+            var scriplist3 = [];
+
+
+
+            // return res.json({
+            //     speech: "Hi your scrip name is" + " " + scripnames  
+            //     });
+
+
+           
+
+
             
             /* Flag indicating whether scrip is Substring of field1 */
             // var field1Substring=0;
