@@ -84,9 +84,9 @@ restService.post('/finUNO', function(req, res) {                    // Uses post
 
 
 
-            // return res.json({
-            //     speech: "Hi your scrip name is" + " " + scripnames  
-            //     });
+            return res.json({
+                speech: "Hi your scrip name is" + " " + scripnames  
+                });
 
 
            
