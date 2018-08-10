@@ -11,14 +11,16 @@ restService.use(bodyParser.urlencoded({
 restService.use(bodyParser.json());
 
 restService.post('/finUNO', function(req, res) {                  
-    
+ var transactionType = req.body.result.parameters.transactionType;   
+ var exchange = req.body.result.parameters.exchange;
+ var quantity = req.body.result.parameters.quantity;
  var scripnames = req.body.result.parameters.scripnames;
  console.log("scripname result", scripnames);
 
    return res.json({
-                speech: "Hi your scrip name is" + " " + scripnames  
-                });
-  });
+         speech: "Alright! I will " + transactionType + quantity + "shares of" + scripnames + "on" + exchange
+    });
+});
  
 restService.listen((process.env.PORT || 8001), function() {
      console.log("Server up and listening");
