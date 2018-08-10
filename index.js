@@ -18,7 +18,7 @@ restService.post('/finUNO', function(req, res) {
  console.log("scripname result", scripnames);
 
    return res.json({
-         speech: "Alright! I will " + transactionType + quantity + "shares of" + scripnames + "on" + exchange
+         speech: "Alright! I will " + transactionType + " " +  quantity + " "+ "shares of" + " " + scripnames + " " + "on" + " " + exchange
     });
 });
  
